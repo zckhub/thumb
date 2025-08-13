@@ -28,7 +28,7 @@ public class DailyTaskExecutor {
     private static final Map<String, String> ACCOUNT_MAP = new HashMap<>();
     static {
         ACCOUNT_MAP.put("515588290@qq.com","111");
-        ACCOUNT_MAP.put("uestczck@163.com","111");
+//        ACCOUNT_MAP.put("uestczck@163.com","111");
         // 添加更多账号...
     }
     public static void main(String[] args) {
@@ -75,10 +75,10 @@ public class DailyTaskExecutor {
 
 
                 //给排行榜上内容点赞 1. 获取趋势内容数据
-                JsonNode trendingData = fetchTrendingData(httpClient);
-                if (trendingData == null) return;
-                // 2. 处理数据并发送请求
-                processConversationIds(httpClient, trendingData,tokenStr);
+//                JsonNode trendingData = fetchTrendingData(httpClient);
+//                if (trendingData == null) return;
+//                // 2. 处理数据并发送请求
+//                processConversationIds(httpClient, trendingData,tokenStr);
 
 
                 // 对用户的conversation生成新的文章，获取到share_id
@@ -88,13 +88,23 @@ public class DailyTaskExecutor {
                 System.err.println("🔴 tmpstareList: " + tmpstareList);
                 shareIDList.addAll(tmpstareList);
             }
+            // 获取第一项
+            String firstToken = tokenList.get(0);
+            System.out.println("第一项 Token: " + firstToken);
+            thumbAllShareID(httpClient,shareIDList,firstToken);
 
+
+            // 获取第二项
+//            String secondToken = tokenList.get(1);
+//            System.out.println("第二项 Token: " + secondToken);
+//            thumbAllShareID(httpClient,shareIDList,secondToken);
             for(String token:tokenList){
                 //对所有share_id进行点赞TODO 这里可以手动加内容
                 List<String> shareRecordList = Arrays.asList("asdfadsf","dsafsda");
                 shareIDList.addAll(shareRecordList);
                 System.err.println("🔴 shareIDList: " + shareIDList);
                 thumbAllShareID(httpClient,shareIDList,token);
+                return;
             }
         } catch (Exception e) {
             System.err.println("⚠️ 任务执行异常: " + e.getMessage());
